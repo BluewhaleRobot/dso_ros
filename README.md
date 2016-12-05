@@ -1,4 +1,5 @@
 # quick start tips for xiaoqiang 
+### 0. install DSO from https://github.com/JakobEngel/dso.git
 ### 1. git clone and install
 ```
 cd ~/Documents/ros/src
