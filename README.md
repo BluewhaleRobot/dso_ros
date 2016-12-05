@@ -1,3 +1,10 @@
+#　quick start tips for xiaoqiang 
+### 1. git clone and install 
+
+### 2. launch the node
+
+Made with :heart: by BlueWhale Tech corp.
+
 # ROS Wrapper around DSO: Direct Sparse Odometry
 
 For more information see

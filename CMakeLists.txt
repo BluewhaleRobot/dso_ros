@@ -20,7 +20,7 @@ find_package(OpenCV REQUIRED)
 message("\n\n---- FOUND OpenCV Headers at\n\"${OpenCV_INCLUDE_DIRS}\"")
 message("---- FOUND OpenCV Libs at\n\"${OpenCV_LIBS}\"")
 
-find_package(Eigen3 REQUIRED)
+## find_package(Eigen3 REQUIRED)
 find_package(Boost COMPONENTS system thread)
 find_library(DSO_LIBRARY dso ${DSO_PATH}/build/lib)
 
@@ -42,6 +42,8 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
+catkin_package()
+
 ## Declare a C++ executable
 add_executable(dso_live src/main.cpp)
 
@@ -51,3 +53,7 @@ target_link_libraries(dso_live
     ${OpenCV_LIBS}
     ${catkin_LIBRARIES})
 
+install(
+  TARGETS dso_live 
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)

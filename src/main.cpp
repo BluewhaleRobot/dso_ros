@@ -1,6 +1,6 @@
 /**
 * This file is part of DSO.
-* 
+*
 * Copyright 2016 Technical University of Munich and Intel.
 * Developed by Jakob Engel <engelj at in dot tum dot de>,
 * for more information see <http://vision.in.tum.de/dso>.
@@ -52,7 +52,7 @@ std::string gammaFile = "";
 bool useSampleOutput=false;
 
 using namespace dso;
-
+int mode=0;
 void parseArgument(char* arg)
 {
 	int option;
@@ -127,6 +127,31 @@ void parseArgument(char* arg)
 		return;
 	}
 
+	if(1==sscanf(arg,"mode=%d",&option))
+	{
+
+		mode = option;
+		if(option==0)
+		{
+			printf("PHOTOMETRIC MODE WITH CALIBRATION!\n");
+		}
+		if(option==1)
+		{
+			printf("PHOTOMETRIC MODE WITHOUT CALIBRATION!\n");
+			setting_photometricCalibration = 0;
+			setting_affineOptModeA = 0; //-1: fix. >=0: optimize (with prior, if > 0).
+			setting_affineOptModeB = 0; //-1: fix. >=0: optimize (with prior, if > 0).
+		}
+		if(option==2)
+		{
+			printf("PHOTOMETRIC MODE WITH PERFECT IMAGES!\n");
+			setting_photometricCalibration = 0;
+			setting_affineOptModeA = -1; //-1: fix. >=0: optimize (with prior, if > 0).
+			setting_affineOptModeB = -1; //-1: fix. >=0: optimize (with prior, if > 0).
+            setting_minGradHistAdd=3;
+		}
+		return;
+	}
 	printf("could not parse argument \"%s\"!!\n", arg);
 }
 
@@ -188,10 +213,10 @@ int main( int argc, char** argv )
 	setting_kfGlobalWeight = 1.3;
 
 
-	printf("MODE WITH CALIBRATION, but without exposure times!\n");
-	setting_photometricCalibration = 2;
-	setting_affineOptModeA = 0;
-	setting_affineOptModeB = 0;
+	// printf("MODE WITH CALIBRATION, but without exposure times!\n");
+	// setting_photometricCalibration = 2;
+	// setting_affineOptModeA = 0;
+	// setting_affineOptModeB = 0;
 
 
 
@@ -236,4 +261,3 @@ int main( int argc, char** argv )
 
 	return 0;
 }
-
