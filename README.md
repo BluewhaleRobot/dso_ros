@@ -1,9 +1,18 @@
-#　quick start tips for xiaoqiang 
-### 1. git clone and install 
-
+# quick start tips for xiaoqiang 
+### 1. git clone and install
+```
+cd ~/Documents/ros/src
+git clone https://github.com/BlueWhaleRobot/dso_ros.git 
+cd ..
+catkin_make
+```
 ### 2. launch the node
+```
+rosrun dso_ros dso_live image:=/camera_node/image_raw calib=/home/xiaoqiang/Documents/ros/src/dso_ros/camera.txt mode=1
+```
+# Made with :heart: by BlueWhale Tech corp.
 
-Made with :heart: by BlueWhale Tech corp.
+##################################################################
 
 # ROS Wrapper around DSO: Direct Sparse Odometry
 
