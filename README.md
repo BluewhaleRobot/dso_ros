@@ -4,6 +4,7 @@
 cd ~/Documents/ros/src
 git clone https://github.com/BlueWhaleRobot/dso_ros.git 
 cd ..
+export DSO_PATH=[PATH_TO_DSO]/dso　　#egg: export DSO_PATH=/home/xiaoqiang/Documents/dso
 catkin_make
 ```
 ### 2. launch the node
