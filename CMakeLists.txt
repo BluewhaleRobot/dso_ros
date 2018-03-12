@@ -8,6 +8,8 @@ find_package(catkin REQUIRED COMPONENTS
   cv_bridge
 )
 
+
+
 set(DSO_PATH $ENV{DSO_PATH})
 message("\n\n---- LOOKING FOR DSO at\n\"${DSO_PATH}\"")
 
@@ -20,17 +22,14 @@ find_package(OpenCV REQUIRED)
 message("\n\n---- FOUND OpenCV Headers at\n\"${OpenCV_INCLUDE_DIRS}\"")
 message("---- FOUND OpenCV Libs at\n\"${OpenCV_LIBS}\"")
 
-## find_package(Eigen3 REQUIRED)
-find_package(Boost COMPONENTS system thread)
+find_package(Eigen3 REQUIRED)
+find_package(Boost COMPONENTS system thread) 
 find_library(DSO_LIBRARY dso ${DSO_PATH}/build/lib)
 
-
-###########
-## Build ##
-###########
+# SSE flags
 
 set(CMAKE_CXX_FLAGS
-   "${SSE_FLAGS} -O2 -g -std=c++0x -fno-omit-frame-pointer"
+   "${SSE_FLAGS} -O2 -g -std=c++0x -march=native -fno-omit-frame-pointer"
 )
 
 include_directories(
@@ -41,6 +40,15 @@ include_directories(
   ${EIGEN3_INCLUDE_DIR}
   ${catkin_INCLUDE_DIRS}
 )
+
+include_directories(
+  ${PROJECT_SOURCE_DIR}/src
+  ${DSO_PATH}/src
+  ${DSO_PATH}/thirdparty/Sophus
+  ${OpenCV_INCLUDE_DIRS}
+  ${Pangolin_INCLUDE_DIRS}
+  ${EIGEN3_INCLUDE_DIR}
+)  
 
 catkin_package()
 
@@ -53,7 +61,10 @@ target_link_libraries(dso_live
     ${OpenCV_LIBS}
     ${catkin_LIBRARIES})
 
+
 install(
   TARGETS dso_live 
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+
+
